@@ -1,0 +1,4 @@
+#once
+
+typedef int128 __builtin_makesinteger(128);
+typedef uint128 __builtin_makeuinteger(128);

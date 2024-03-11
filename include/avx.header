@@ -1,0 +1,4 @@
+#once
+
+typedef int256 __builtin_makesinteger(256);
+typedef uint256 __builtin_makeuinteger(256);

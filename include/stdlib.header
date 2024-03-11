@@ -1,0 +1,46 @@
+#once
+
+typedef char int16;
+
+#importifdef FLOATING_POINT floats.header
+#importifdef __SSE sse.header
+#importifdef __AVX avx.header
+#importifdef __AVX512 avx512.header
+
+// LIBC
+
+decl int64 time(int64);
+decl void srand(uint32);
+decl int32 rand(int32);
+
+decl int64* __acrt_iob_func(int32);
+
+decl void putc(int32, void*);
+decl void putwc(int32, void*);
+decl int32 fgetc(void*);
+decl int8* setlocale(int32, int16*);
+decl int32 toLower(int32 ch);
+
+decl void* realloc(void*, int64);
+decl void* malloc(uint64);
+decl void* memset(void*, int32, int64);
+
+decl void free(void*);
+
+// STDLIB
+
+// CONSOLE OUTPUT
+
+decl void cout(char);
+decl int32 cin(int32);
+decl int32 strout(int16*);
+decl void println(int16*);
+
+// MEMORY MANAGEMENT
+decl void* globalAlloc(uint64);
+decl void globalFree(void*);
+decl void globalFreeMemory(int32);
+
+// Strings
+decl int32 compareString(int16*, int16*);
+decl int32 stringLength(int16*);

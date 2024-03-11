@@ -1,0 +1,3 @@
+#once
+typedef float float32;
+typedef double float64;

@@ -1,0 +1,141 @@
+#import stdlib.header
+
+static int64* stdout;
+static int64* stdin;
+
+export cout;
+export cin;
+export strout;
+export globalAlloc;
+export globalFree;
+export globalFreeMemory;
+export stringLength;
+export compareString;
+export println;
+
+impl void cout(int16 ch)
+{
+     if (stdout == 0) // get stdout ONCE (for performance reasons)
+     {
+          stdout = __acrt_iob_func(1);
+     }
+
+     putwc(ch, stdout); // print the character
+}
+
+impl int32 cin(int32 _unused)
+{
+     if (stdin == 0) // get stdout ONCE (for performance reasons)
+     {
+          stdin = __acrt_iob_func(0);
+     }
+
+     local int32 c = fgetc(stdin); // print the character
+     return c;
+}
+
+impl int32 strout(int16* ptr)
+{
+     local int32 i = 0;
+
+     while (1 == 1)
+     {
+          local int16 ch = *ptr; // dereference the pointer to get the character
+          if (ch == 0) // break on null
+          {
+               return i;
+          }
+
+          cout(ch); // print the character
+
+          ptr += 2; // move to the next character
+
+          i++;
+     }
+
+     return i;
+}
+
+impl int32 toLower(int16 ch) // in stdlib
+{
+     if (ch <= 'Z')
+     {
+          if (ch >= 'A')
+          {
+               ch += 32;
+          }
+     }
+
+     return ch;
+}
+
+static int16[] readline_str = reserve 128;
+
+impl int16* readline(int32 _unused)
+{
+     memset(readline_str, 0, 128);
+
+     local int16 ch = cin(0);
+
+     local int16* ptr = readline_str;
+
+     while (ch != '\n')
+     {
+          *ptr = ch;
+
+          ch = cin(0);
+          ptr += 2;
+     }
+
+     return readline_str;
+}
+
+impl int32 stringLength(int16* ss)
+{
+     local int16 ch = *ss;
+     local int32 len = 0;
+
+     while (ch != 0)
+     {
+          ss += 2;
+          ch = *ss;
+          len++;
+     }
+
+     return len;
+}
+
+impl int32 compareString(char* a, char* b)
+{
+     local int32 lenA = stringLength(a);
+     local int32 lenB = stringLength(b);
+
+     if (lenA != lenB)
+     {
+          return 0;
+     }
+
+     while (lenA >= 0)
+     {
+          local int16 chA = *a;
+          local int16 chB = *b;
+
+          a += 2;
+          b += 2;
+
+          if (chA != chB)
+          {
+               return 0;
+          }
+
+          lenA--;
+     }
+
+     return 1; // same
+}
+
+impl void println(int16* str)
+{
+     strout(str);
+     cout('\n');
+}
